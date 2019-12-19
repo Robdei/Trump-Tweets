@@ -1,0 +1,62 @@
+Text - the text of the tweet
+Date - creation date of the tweet in EST
+is_retweet - binary variable indicating if tweet is a retweet
+DateTime - creation date and time in EST
+Time - creation time in EST
+Days Since Announcement - days elapsed since 5/16/2015
+Day of week - 0 = Monday .... 6 = Sunday
+Subjectivity - subjectivity of tweet as determined by textblob
+neg,neu,pos,Sentiment - output of vadersentimentanalyzer
+Probability that Trump Wrote it - Trump vs staff probability from https://blog.trumptweettrack.com/
+Trump Wrote it - binary variable showing if column 'Probability that Trump Wrote it' > 0.5
+Not Retweet * Not Trump Wrote it - boolean showing logical operation (~ is_retweet) & (~ Trump Wrote it)
+NN,VBD,NNS,JJ,RB,IN,VBG,VBZ,DT,VBP,VBN,PRP,EX,CD,NNP,CC,VB,JJR,
+WRB,JJS,MD,RP,FW,RBR,PDT,RBS,WP,PRP$,UH,POS,WDT,WP$,TO,NNPS - output of pos tag marking from nltk
+Len - number of words contained in the tweet
+Thread Length - number of tweets comprising thread. 1 if not a thread
+Diff - Time difference (in seconds) until next tweet
+Last Diff - Time difference (in seconds) from last tweet to this tweet
+@TeamTrump,@WhiteHouse:,@realDonaldTrump:,@IvankaTrump:,@EricTrump:
+,@GOPChairwoman:,@DanScavino:,@Scavino45:,@foxandfriends: - binary variable indicating tweet is a retweet from one of these accounts
+Contains Link - text contains 'https'
+Contains Quote - text contains quotation marks
+Last Tweet was Retweet - previous tweet has is_retweet = 1
+# of Tweets in last day - number of tweets sent out in last 24 hours
+# of Tweets in last 120 min - number of tweets sent out in last 2 hours
+# of Tweets in last 60 min - number of tweets sent out in last hour
+# of Tweets in last 40 min - number of tweets sent out in last 40 minutes
+# of Tweets in last 10 min - number of tweets sent out in last 10 minutes
+Positive,Negative,Anger,Anticipation,Disgust,Fear,Joy,Sadness,Surprise,Trust - output from emotion analysis from http://sentiment.nrc.ca/lexicons-for-research/
+Cluster - indicates the cluster of tweets this tweet belongs in. iterates upward by 1 when column Diff > 20 minutes
+Storm Length - number of tweets in this cluster
+Mean Diff - the average Diff value for this cluster up to this tweet
+Levenshtein Distance - levenshten distance between this tweet and the last one as assigned by python-levenshtein
+Levenshtein Ratio - levenshten ratio between this tweet and the last one as assigned by python-levenshtein
+Levenshtein Distance 2 - levenshten distance between this tweet and the one before last as assigned by python-levenshtein
+Levenshtein Ratio 2 - levenshten ratio between this tweet and the one before last as assigned by python-levenshtein
+Grade Level,Text Standard Level,Reading Ease,Smog,Coleman,Dale-Chall,Difficult Words,Linsear,Gunning-Fog - outputs from textstat
+Democrats,Witch Hunt,Schiff,Impeach - text contains these words
+Proportion of caps - proportion of characters that are capitalized
+Storm number - tweets preceding this one in this cluster
+Sign off - binary variable indicating Diff > 20 min
+No Items Scheduled - No public schedule items indicated by https://factba.se/topic/calendar
+Lunch - lunch is on public schedule
+Travel - public schedule contains item "The President departs the White House en route to Joint Base Andrews"
+8-12 Items - number of public schedule items between 8:00 and noon EST
+12-4 Items - number of public schedule items between noon and 16:00 EST
+4-8 Items - number of public schedule items between 16:00 and 20:00 EST
+8-8 Items - number of public schedule items between 8:00 and 20:00 EST
+Travel before noon - public schedule contains item "The President departs the White House en route to Joint Base Andrews" before noon
+Travel after noon - public schedule contains item "The President departs the White House en route to Joint Base Andrews" after noon
+Hour_0,Hour_1,Hour_2,Hour_3,Hour_4,Hour_5,Hour_6,Hour_7,Hour_8,Hour_9,Hour_10,Hour_11,Hour_12,
+Hour_13,Hour_14,Hour_15,Hour_16,Hour_17,Hour_18,Hour_19,Hour_20,Hour_21,Hour_22,Hour_23 - binaries representing that tweet was sent at that hour of the day EST
+Weekday_0,Weekday_1,Weekday_2,Weekday_3,Weekday_4,Weekday_5,Weekday_6 - binaries indicating the day of the week (0 = Monday)
+neg lag,neu lag,pos lag,Sentiment lag - output of vadersentimentanalyzer from previous tweet
+NN lag,JJ lag,DT lag,VBZ lag,VBG lag,VB lag,RB lag,CD lag,VBD lag,IN lag,PRP lag,VBP lag,VBN lag,
+NNS lag,WP lag,MD lag,JJR lag,RP lag,FW lag,NNP lag,EX lag,WDT lag,JJS lag,PRP$ lag,WRB lag,CC lag,
+RBS lag,RBR lag,PDT lag,UH lag,WP$ lag,NNPS lag,POS lag - output of pos tag marking from nltk applied to previous tweet
+Len lag - Number of words in previous tweet
+Thread Length lag - thread length of last tweet
+Last Diff lag - Time difference (in seconds) between previous tweet and the tweet before last
+Grade Level lag,Text Standard Level lag,Reading Ease lag,Smog lag,Coleman lag,
+Dale-Chall lag,Difficult Words lag,Linsear lag,Gunning-Fog lag - outputs from textstat from last tweet
