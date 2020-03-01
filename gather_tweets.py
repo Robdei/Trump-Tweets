@@ -57,9 +57,9 @@ def gather_from_archive(start_year, end_year):
     tweets_df = pd.DataFrame()
 
     #append tweet information
-    for year in list(pd.date_range(start_year,end_year)):
+    for year in range(start_year,end_year+1):
         tweets_df = pd.concat([tweets_df,gather_year_from_archive(year)])
 
     return tweets_df
 
-print(gather_from_archive(2015,2020))
+gather_from_archive(2010,datetime.now().year).to_csv('Trump_tweets.csv', index=False)
