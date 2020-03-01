@@ -89,5 +89,4 @@ def convert_to_est(tweets_df):
     return tweets_df
 
 tweets_df = gather_from_archive(2018,2020)
-convert_to_est(tweets_df).to_csv('temp.csv')
 #print(gather_year_from_archive(2020)['Date'])
