@@ -3,7 +3,9 @@ from subprocess import Popen
 from datetime import datetime
 import pandas as pd
 import json
+import pytz
 import os
+from dateutil import parser
 
 def gather_year_from_archive(year):
     max_year = datetime.now().year
@@ -57,9 +59,35 @@ def gather_from_archive(start_year, end_year):
     tweets_df = pd.DataFrame()
 
     #append tweet information
-    for year in range(start_year,end_year+1):
-        tweets_df = pd.concat([tweets_df,gather_year_from_archive(year)])
+    for year in list(range(start_year, end_year + 1)):
+        tweets_df = pd.concat([tweets_df,
+                               gather_year_from_archive(year)]
+                              )
+
+    tweets_df.reset_index(inplace=True,drop=True)
 
     return tweets_df
 
-gather_from_archive(2010,datetime.now().year).to_csv('Trump_tweets.csv', index=False)
+
+def convert_to_est(tweets_df):
+    old_timezone = pytz.timezone("UTC")
+    new_timezone = pytz.timezone("US/Eastern")
+
+    tweets_df['DateTime'] = tweets_df['Date'].apply(parser.parse)
+
+    tweets_df['DateTime'] = [x.strftime("%Y-%m-%d %H:%M:%S") for x in tweets_df['DateTime']]
+    tweets_df['DateTime'] = tweets_df['DateTime'].apply(parser.parse)
+
+    tweets_df['DateTime'] = [old_timezone.localize(x).astimezone(new_timezone) for x in tweets_df['DateTime']]
+    tweets_df['DateTime'] = [str(x) for x in tweets_df['DateTime']]
+
+    tweets_df['Time'] = [tweets_df['DateTime'][x][11:-6] for x in range(len(tweets_df['DateTime']))]
+    tweets_df['Date'] = [tweets_df['DateTime'][x][:10] for x in range(len(tweets_df['DateTime']))]
+
+    tweets_df['Date'] = [datetime.strptime(tweets_df['Date'][x], '%Y-%m-%d') for x in range(len(tweets_df['DateTime']))]
+
+    return tweets_df
+
+tweets_df = gather_from_archive(2018,2020)
+convert_to_est(tweets_df).to_csv('temp.csv')
+#print(gather_year_from_archive(2020)['Date'])
