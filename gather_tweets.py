@@ -60,13 +60,25 @@ def gather_from_archive(start_year, end_year):
 
     #append tweet information
     for year in list(range(start_year, end_year + 1)):
-        tweets_df = pd.concat([tweets_df,
-                               gather_year_from_archive(year)]
-                              )
+        # The JSON somtimes doesn't download, so retry up to 5 times if it doesn't
+        for attempt in range(5):
+            while True:
+                try:
+                    tweets_df = pd.concat([tweets_df,
+                                           gather_year_from_archive(year)]
+                                          )
+                except json.decoder.JSONDecodeError:
+                    print('Retrying JSON download')
+                    continue
+                break
+
 
     tweets_df.reset_index(inplace=True,drop=True)
 
-    return tweets_df
+    #Convert str to datetime
+    tweets_df['Date'] = tweets_df['Date'].apply(parser.parse)
+
+    return tweets_df.sort_values(by=['Date'])
 
 
 def convert_to_est(tweets_df):
@@ -88,5 +100,6 @@ def convert_to_est(tweets_df):
 
     return tweets_df
 
-tweets_df = gather_from_archive(2018,2020)
+tweets_df = gather_from_archive(2015,2020)
 #print(gather_year_from_archive(2020)['Date'])
+tweets_df.to_csv('Tweets.csv',index=False)
