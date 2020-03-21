@@ -30,7 +30,7 @@ def analize_subjectivity(text):
 # Apply nlp functions to data
 
 def get_sentiment_and_subjectivity(tweets_df):
-    assert 'Text' in tweet_df.columns, "this is not a tweet dataframe"
+    assert 'Text' in tweets_df.columns, "this is not a tweet dataframe"
 
     # remove hyperlink and non-text info from tweet
     clean = [clean_tweet(x) for x in tweets_df['Text']]
@@ -50,5 +50,5 @@ def get_sentiment_and_subjectivity(tweets_df):
     tweets_df['pos'] = pos
     tweets_df['Sentiment'] = compound
 
-    return (tweet_df)
+    return (tweets_df)
 
