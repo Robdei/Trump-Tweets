@@ -22,6 +22,7 @@ def gather_year_from_archive(year):
     ID = []
 
     #Download json of tweet info
+    print(f'Downloading {year} tweets...')
     p = Popen(f'curl http://www.trumptwitterarchive.com/data/realdonaldtrump/{year}.json > Tweets.txt', shell=True)
     p.wait()
 
@@ -58,33 +59,28 @@ def gather_from_archive(start_year, end_year):
     #blank df to append tweet information to
     tweets_df = pd.DataFrame()
 
-    #append tweet information
+    #append tweet information onto base dataframe
     for year in list(range(start_year, end_year + 1)):
-        # The JSON somtimes doesn't download, so retry up to 5 times if it doesn't
-        for attempt in range(5):
-            while True:
-                try:
-                    tweets_df = pd.concat([tweets_df,
-                                           gather_year_from_archive(year)]
-                                          )
-                except json.decoder.JSONDecodeError:
-                    print('Retrying JSON download')
-                    continue
-                break
+        # The JSON somtimes doesn't download, so retry if it doesn't
+        while True:
+            try:
+                tweets_df = pd.concat([tweets_df,
+                                       gather_year_from_archive(year)]
+                                      )
+            except json.decoder.JSONDecodeError:
+                print('Retrying JSON download')
+                continue
+            break
 
 
     tweets_df.reset_index(inplace=True,drop=True)
 
-    #Convert str to datetime
-    tweets_df['Date'] = tweets_df['Date'].apply(parser.parse)
-
-    return tweets_df.sort_values(by=['Date'])
+    return tweets_df
 
 
 def convert_to_est(tweets_df):
     old_timezone = pytz.timezone("UTC")
     new_timezone = pytz.timezone("US/Eastern")
-
     tweets_df['DateTime'] = tweets_df['Date'].apply(parser.parse)
 
     tweets_df['DateTime'] = [x.strftime("%Y-%m-%d %H:%M:%S") for x in tweets_df['DateTime']]
@@ -97,9 +93,7 @@ def convert_to_est(tweets_df):
     tweets_df['Date'] = [tweets_df['DateTime'][x][:10] for x in range(len(tweets_df['DateTime']))]
 
     tweets_df['Date'] = [datetime.strptime(tweets_df['Date'][x], '%Y-%m-%d') for x in range(len(tweets_df['DateTime']))]
-
+    tweets_df.sort_values(by=['DateTime'], inplace = True)
     return tweets_df
 
-tweets_df = gather_from_archive(2015,2020)
-#print(gather_year_from_archive(2020)['Date'])
-tweets_df.to_csv('Tweets.csv',index=False)
+
