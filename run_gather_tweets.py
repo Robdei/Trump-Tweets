@@ -1,6 +1,7 @@
 import gather_tweets
 import nlp_functions
 
+# grab tweets between the following years (inclusive)
 start_year = 2015
 end_year = 2017
 
@@ -12,5 +13,8 @@ tweets_df = gather_tweets.convert_to_est(tweets_df)
 
 # determine sentiment and subjectivity
 tweets_df = nlp_functions.get_sentiment_and_subjectivity(tweets_df)
-tweets_df.to_csv('Test.csv',index=False)
 
+# download trump vs staff classification labels
+gather_tweets.gather_trump_v_staff_classification()
+
+#tweets_df.to_csv('Test.csv',index=False)

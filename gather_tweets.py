@@ -6,6 +6,7 @@ import json
 import pytz
 import os
 from dateutil import parser
+from selenium import webdriver
 
 def gather_year_from_archive(year):
     max_year = datetime.now().year
@@ -77,7 +78,6 @@ def gather_from_archive(start_year, end_year):
 
     return tweets_df
 
-
 def convert_to_est(tweets_df):
     old_timezone = pytz.timezone("UTC")
     new_timezone = pytz.timezone("US/Eastern")
@@ -96,4 +96,53 @@ def convert_to_est(tweets_df):
     tweets_df.sort_values(by=['DateTime'], inplace = True)
     return tweets_df
 
+def f7(seq):
+    seen = set()
+    seen_add = seen.add
+    return [x for x in seq if not (x in seen or seen_add(x))]
 
+def gather_trump_v_staff_classification(no_of_pagedowns=50):
+    '''
+    gathers trump vs staff info from https://blog.trumptweettrack.com/tagged/tweet_analysis
+    '''
+
+    classifier = pd.read_csv('Trump Classifier.csv')
+    browser = webdriver.Chrome()
+    browser.get("https://blog.trumptweettrack.com/tagged/tweet_analysis")
+    time.sleep(1)
+
+    elem = browser.find_element_by_tag_name("body")
+
+    while no_of_pagedowns:
+        elem.send_keys(Keys.PAGE_DOWN)
+        time.sleep(0.15)
+        no_of_pagedowns -= 1
+
+    web_page = str(browser.page_source)
+    browser.close()
+    Probabilities = [m.start() for m in re.finditer('Our Analysis</h2><p>', web_page)]
+    PostDate = [m.start() for m in re.finditer('<br>Posted at:', web_page)]
+    Text = [m.start() for m in re.finditer('<blockquote><p><i>', web_page)]
+
+    probs = [web_page[x + web_page[x:].find(' chance') - 3:x + web_page[x:].find(' chance')] for x in Probabilities][
+            :len(f7([web_page[x + 18:x + 44] for x in PostDate]))]
+
+    probs = [int(x[:2]) / 100 if x[0].isdigit() else int(x[1]) / 100 for x in probs]
+
+    new_classifications = pd.DataFrame()
+    new_classifications['DateTime'] = f7([web_page[x + 18:x + 44] for x in PostDate])
+    try:
+        new_classifications['Text'] = f7([web_page[x + 26:x + web_page[x:].find('</i></p><p><i>')] for x in Text])
+    except ValueError:
+        new_classifications['Text'] = (f7([web_page[x + 26:x + web_page[x:].find('</i></p><p><i>')] for x in Text])
+                                       [:len(new_classifications)]
+                                      )
+    new_classifications['Probability that Trump Wrote it'] = probs
+    newdata = pd.concat([new_classifications, classifier], axis=0).drop_duplicates('DateTime', keep='last')
+    newdata.reset_index(inplace=True)
+    newdata.drop('index', axis=1, inplace=True)
+    newdata['DateTime'] = newdata['DateTime'].apply(parser.parse)
+    newdata.to_csv('Trump Classifier.csv', index=False)
+    return('Classifications Downloaded')
+
+#def attach
