@@ -25,3 +25,30 @@ def analize_subjectivity(text):
     '''
     analysis = TextBlob(clean_tweet(text))
     return(analysis.sentiment.subjectivity)
+
+#_______________________________________________________________#
+# Apply nlp functions to data
+
+def get_sentiment_and_subjectivity(tweets_df):
+    assert 'Text' in tweet_df.columns, "this is not a tweet dataframe"
+
+    # remove hyperlink and non-text info from tweet
+    clean = [clean_tweet(x) for x in tweets_df['Text']]
+
+    # determine sentiment and subjectivity with vadersentiment and textblob, respectively
+    subjectivity = [analize_subjectivity(x) for x in clean]
+    polarity = [analize_sentiment(x) for x in clean]
+    neg = [x['neg'] for x in polarity]
+    pos = [x['pos'] for x in polarity]
+    neu = [x['neu'] for x in polarity]
+    compound = [x['compound'] for x in polarity]
+
+    # append information onto tweet dataframe
+    tweets_df['Subjectivity'] = subjectivity
+    tweets_df['neg'] = neg
+    tweets_df['neu'] = neu
+    tweets_df['pos'] = pos
+    tweets_df['Sentiment'] = compound
+
+    return (tweet_df)
+
