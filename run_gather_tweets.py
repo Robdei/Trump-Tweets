@@ -2,8 +2,8 @@ import gather_tweets
 import nlp_functions
 
 # grab tweets between the following years (inclusive)
-start_year = 2015
-end_year = 2017
+start_year = 2016
+end_year = 2020
 
 # download tweet information
 tweets_df = gather_tweets.gather_from_archive(start_year,end_year)
@@ -12,9 +12,15 @@ tweets_df = gather_tweets.gather_from_archive(start_year,end_year)
 tweets_df = gather_tweets.convert_to_est(tweets_df)
 
 # determine sentiment and subjectivity
+print('determining sentiment')
 tweets_df = nlp_functions.get_sentiment_and_subjectivity(tweets_df)
 
 # download trump vs staff classification labels
-gather_tweets.gather_trump_v_staff_classification()
+print('determining trump v staff classification')
+gather_tweets.gather_trump_v_staff_classification(path_to_chromedriver='/Users/robbygottesman/Desktop/Twets/chromedriver')
+tweets_df = gather_tweets.join_classifer_and_tweets(tweets_df)
 
-#tweets_df.to_csv('Test.csv',index=False)
+print('applying NER')
+tweets_df = nlp_functions.get_NER_parameters(tweets_df)
+
+tweets_df.to_csv('Test.csv',index=False)

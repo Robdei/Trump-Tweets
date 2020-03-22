@@ -7,6 +7,8 @@ import pytz
 import os
 from dateutil import parser
 from selenium import webdriver
+import time
+from selenium.webdriver.common.keys import Keys
 
 def gather_year_from_archive(year):
     max_year = datetime.now().year
@@ -79,6 +81,7 @@ def gather_from_archive(start_year, end_year):
     return tweets_df
 
 def convert_to_est(tweets_df):
+    # define timezone (covert from UTC to EST)
     old_timezone = pytz.timezone("UTC")
     new_timezone = pytz.timezone("US/Eastern")
     tweets_df['DateTime'] = tweets_df['Date'].apply(parser.parse)
@@ -93,7 +96,8 @@ def convert_to_est(tweets_df):
     tweets_df['Date'] = [tweets_df['DateTime'][x][:10] for x in range(len(tweets_df['DateTime']))]
 
     tweets_df['Date'] = [datetime.strptime(tweets_df['Date'][x], '%Y-%m-%d') for x in range(len(tweets_df['DateTime']))]
-    tweets_df.sort_values(by=['DateTime'], inplace = True)
+    tweets_df['DateTime'] = [x[:-6] for x in tweets_df['DateTime']]
+    tweets_df.sort_values(by=['DateTime'], inplace = True, ascending = False)
     return tweets_df
 
 def f7(seq):
@@ -101,13 +105,13 @@ def f7(seq):
     seen_add = seen.add
     return [x for x in seq if not (x in seen or seen_add(x))]
 
-def gather_trump_v_staff_classification(no_of_pagedowns=50):
+def gather_trump_v_staff_classification(no_of_pagedowns=50, path_to_chromedriver='/Users/robbygottesman/Desktop/Twets/chromedriver'):
     '''
     gathers trump vs staff info from https://blog.trumptweettrack.com/tagged/tweet_analysis
     '''
 
     classifier = pd.read_csv('Trump Classifier.csv')
-    browser = webdriver.Chrome()
+    browser = webdriver.Chrome(path_to_chromedriver)
     browser.get("https://blog.trumptweettrack.com/tagged/tweet_analysis")
     time.sleep(1)
 
@@ -145,4 +149,11 @@ def gather_trump_v_staff_classification(no_of_pagedowns=50):
     newdata.to_csv('Trump Classifier.csv', index=False)
     return('Classifications Downloaded')
 
-#def attach
+def join_classifer_and_tweets(tweets_df):
+    classifier = pd.read_csv('Trump Classifier.csv')
+    classifier['DateTime'] = classifier['DateTime'].apply(str)
+    tweets_df['DateTime'] = tweets_df['DateTime'].apply(str)
+    tweets_df = tweets_df.merge(classifier[['DateTime', 'Probability that Trump Wrote it']], on='DateTime', how='left')
+    tweets_df['trump_wrote_this'] = [1 if x >= .5 else 0 for x in tweets_df['Probability that Trump Wrote it']]
+
+    return tweets_df
