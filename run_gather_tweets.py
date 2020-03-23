@@ -5,6 +5,12 @@ import nlp_functions
 start_year = 2016
 end_year = 2020
 
+#Tweepy credentials
+consumer_key = "XXX"
+consumer_secret = "XXX"
+access_key = "XXX"
+access_secret = "XXX"
+
 # download tweet information
 tweets_df = gather_tweets.gather_from_archive(start_year,end_year)
 
