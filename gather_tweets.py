@@ -23,6 +23,7 @@ def gather_year_from_archive(year):
     favorites = []
     isretweet = []
     ID = []
+    ID2 = []
 
     #Download json of tweet info
     print(f'Downloading {year} tweets...')
@@ -38,7 +39,8 @@ def gather_year_from_archive(year):
             retweets.append(tweet['retweet_count'])
             favorites.append(tweet['favorite_count'])
             isretweet.append(tweet['is_retweet'])
-            ID.append(tweet['id_str'])
+            ID.append(str(tweet['id_str'])[:11])
+            ID2.append(str(tweet['id_str'])[11:])
     os.remove('Tweets.txt')
 
     #create df of tweet information
@@ -50,6 +52,7 @@ def gather_year_from_archive(year):
     tweets_df['favorite_count'] = favorites
     tweets_df['is_retweet'] = isretweet
     tweets_df['id_str'] = ID
+    tweets_df['id_str_2'] = ID2
 
     return tweets_df
 
@@ -157,3 +160,5 @@ def join_classifer_and_tweets(tweets_df):
     tweets_df['trump_wrote_this'] = [1 if x >= .5 else 0 for x in tweets_df['Probability that Trump Wrote it']]
 
     return tweets_df
+
+#def tweepy_get_attachments(tweets_df):
