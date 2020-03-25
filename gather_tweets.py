@@ -9,6 +9,7 @@ from dateutil import parser
 from selenium import webdriver
 import time
 from selenium.webdriver.common.keys import Keys
+import tweepy
 
 def gather_year_from_archive(year):
     max_year = datetime.now().year
@@ -161,4 +162,68 @@ def join_classifer_and_tweets(tweets_df):
 
     return tweets_df
 
-#def tweepy_get_attachments(tweets_df):
+def activate_tweepy(consumer_key,consumer_secret,access_key,access_secret):
+    #input tweepy credentials
+    auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
+    auth.set_access_token(access_key, access_secret)
+    api = tweepy.API(auth)
+
+def tweepy_get_attachments(tweets_df):
+    url_df = pd.read_csv('Attachments.csv')
+    tweets_df['contains_link'] = [int('https' in text) for text in tweets_df['Text']]
+    tweets_df_w_link = tweets_df[tweets_df.contains_link == 1]
+    ids = [int(str(x)+str(y)) for x,y in zip(tweets_df['id_str'],tweets_df['id_str_2'])]
+    url_ids = [int(str(x)+str(y)) for x,y in zip(url_df['id_str'],url_df['id_str_2'])]
+
+    #obtain only id strings not in the attachment dataframe
+    ids_to_download = list(set(ids) - set(url_ids))
+    print(f'{len(ids_to_download)} new tweets to download')
+
+    auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
+    auth.set_access_token(access_key, access_secret)
+    api = tweepy.API(auth)
+
+    id_str,id_str_2,media_type,urls,text,date,is_quote = [[]*7]
+    for id in ids_to_download:
+        try:
+            tweet = api.get_status(id)
+        except tweepy.TweepError as e:
+            new_df = pd.DataFrame()
+            new_df['date'] = date
+            new_df['id_str'] = id_str
+            new_df['id_str_2'] = id_str_2
+            new_df['text'] = text
+            new_df['media_type'] = media_type
+            new_df['url'] = urls
+            new_df['is_quote'] = is_quote
+            url_df = pd.concat([new_df, url_df])
+            url_df.to_csv('Attachments.csv', index=False)
+            if e.api_code == None:
+                print('RateLimitError')
+                break
+            return(e.api_code)
+        id_str.append(str(id)[:11])
+        id_str_2.append(str(id)[11:])
+        try:
+            urls.append(tweet.entities['media'][0]['expanded_url'])
+        except KeyError:
+            urls.append(np.nan)
+        try:
+            media_type.append(tweet.entities['media'][0]['type'])
+        except KeyError:
+            media_type.append(np.nan)
+
+        text.append(tweet.text)
+        date.append(tweet.created_at)
+        is_quote.append(tweet.is_quote_status)
+    new_df = pd.DataFrame()
+    new_df['date'] = date
+    new_df['id_str'] = id_str
+    new_df['id_str_2'] = id_str_2
+    new_df['text'] = text
+    new_df['media_type'] = media_type
+    new_df['url'] = urls
+    new_df['is_quote'] = is_quote
+    url_df = pd.concat([new_df,url_df])
+    url_df.to_csv('Attachments.csv', index=False)
+
