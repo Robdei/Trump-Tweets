@@ -1,5 +1,6 @@
 import gather_tweets
 import nlp_functions
+import pandas as pd
 
 # grab tweets between the following years (inclusive)
 start_year = 2016
@@ -23,13 +24,17 @@ tweets_df = nlp_functions.get_sentiment_and_subjectivity(tweets_df)
 
 # download trump vs staff classification labels
 print('determining trump v staff classification')
-gather_tweets.gather_trump_v_staff_classification(no_of_pagedowns=20,path_to_chromedriver='/Users/robbygottesman/Desktop/Twets/chromedriver')
+gather_tweets.gather_trump_v_staff_classification(no_of_pagedowns=50,path_to_chromedriver='/Users/robbygottesman/Desktop/Twets/chromedriver')
 tweets_df = gather_tweets.join_classifer_and_tweets(tweets_df)
 
 print('applying NER')
 tweets_df = nlp_functions.get_NER_parameters(tweets_df)
+tweets_df.to_csv('Test.csv',index=False)
 
 print('obtaining media attachments')
-gather_tweets.tweepy_get_attachments(tweets_df)
+gather_tweets.tweepy_get_attachments(tweets_df, consumer_key, consumer_secret, access_key, access_secret)
+tweets_df = pd.read_csv('Test.csv')
+media = pd.read_csv('Attachments.csv')
+tweets_df = tweets_df.merge(media, on = ['id_str','id_str_2'],how = 'left')
 
-tweets_df.to_csv('Test.csv',index=False)
+tweets_df.to_csv('Test2.csv',index=False)

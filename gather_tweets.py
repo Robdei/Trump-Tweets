@@ -10,6 +10,8 @@ from selenium import webdriver
 import time
 from selenium.webdriver.common.keys import Keys
 import tweepy
+import numpy as np
+
 
 def gather_year_from_archive(year):
     max_year = datetime.now().year
@@ -162,68 +164,108 @@ def join_classifer_and_tweets(tweets_df):
 
     return tweets_df
 
-def activate_tweepy(consumer_key,consumer_secret,access_key,access_secret):
-    #input tweepy credentials
+def link(text):
+    if 'https' in text:
+        return True
+    else:
+        return False
+
+def tweepy_get_attachments(tweets_df, consumer_key, consumer_secret, access_key, access_secret, only_new=True):
     auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
     auth.set_access_token(access_key, access_secret)
     api = tweepy.API(auth)
 
-def tweepy_get_attachments(tweets_df):
-    url_df = pd.read_csv('Attachments.csv')
-    tweets_df['contains_link'] = [int('https' in text) for text in tweets_df['Text']]
-    tweets_df_w_link = tweets_df[tweets_df.contains_link == 1]
-    ids = [int(str(x)+str(y)) for x,y in zip(tweets_df['id_str'],tweets_df['id_str_2'])]
-    url_ids = [int(str(x)+str(y)) for x,y in zip(url_df['id_str'],url_df['id_str_2'])]
+    data = tweets_df
+    data['contains_link'] = data['Text'].apply(link)
+    data = data[(data.contains_link == True) & (data.is_retweet == False)]
+    ids = [int(str(x) + str(y)) for x, y in zip(data['id_str'], data['id_str_2'])]
 
-    #obtain only id strings not in the attachment dataframe
+    url_df = pd.read_csv('Attachments.csv')
+    url_ids = [int(str(int(x)) + str(int(y))) for x, y in zip(url_df['id_str'], url_df['id_str_2'])]
+    # obtain only id strings not in the attachment dataframe
     ids_to_download = list(set(ids) - set(url_ids))
+
+    url_df = pd.DataFrame()
+
+    id_str = []
+    id_str_2 = []
+    media_type = []
+    urls = []
+    text = []
+    date = []
+    is_quote = []
+    quote = []
+    time_of_quote = []
+
+    if not only_new:
+        ids_to_download = ids
+
     print(f'{len(ids_to_download)} new tweets to download')
 
-    auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
-    auth.set_access_token(access_key, access_secret)
-    api = tweepy.API(auth)
-
-    id_str,id_str_2,media_type,urls,text,date,is_quote = [[]*7]
-    for id in ids_to_download:
+    for n, id in enumerate(ids_to_download):
+        if n % 2 == 0:
+            print(id)
         try:
             tweet = api.get_status(id)
-        except tweepy.TweepError as e:
-            new_df = pd.DataFrame()
-            new_df['date'] = date
-            new_df['id_str'] = id_str
-            new_df['id_str_2'] = id_str_2
-            new_df['text'] = text
-            new_df['media_type'] = media_type
-            new_df['url'] = urls
-            new_df['is_quote'] = is_quote
-            url_df = pd.concat([new_df, url_df])
-            url_df.to_csv('Attachments.csv', index=False)
-            if e.api_code == None:
-                print('RateLimitError')
-                break
-            return(e.api_code)
-        id_str.append(str(id)[:11])
-        id_str_2.append(str(id)[11:])
-        try:
-            urls.append(tweet.entities['media'][0]['expanded_url'])
-        except KeyError:
-            urls.append(np.nan)
-        try:
-            media_type.append(tweet.entities['media'][0]['type'])
-        except KeyError:
-            media_type.append(np.nan)
+            id_str.append(str(id)[:11])
+            id_str_2.append(str(id)[11:])
+            try:
+                urls.append(tweet.entities['media'][0]['expanded_url'])
+            except KeyError:
+                urls.append(np.nan)
+            try:
+                media_type.append(tweet.entities['media'][0]['type'])
+            except KeyError:
+                media_type.append(np.nan)
 
-        text.append(tweet.text)
-        date.append(tweet.created_at)
-        is_quote.append(tweet.is_quote_status)
-    new_df = pd.DataFrame()
-    new_df['date'] = date
-    new_df['id_str'] = id_str
-    new_df['id_str_2'] = id_str_2
-    new_df['text'] = text
-    new_df['media_type'] = media_type
-    new_df['url'] = urls
-    new_df['is_quote'] = is_quote
-    url_df = pd.concat([new_df,url_df])
-    url_df.to_csv('Attachments.csv', index=False)
+            text.append(tweet.text)
+            date.append(tweet.created_at)
+            is_quote.append(tweet.is_quote_status)
+            if tweet.is_quote_status:
+                try:
+                    quote.append(tweet.quoted_status.text)
+                    time_of_quote.append(tweet.quoted_status.created_at)
+                except AttributeError:
+                    quote.append('attribute_error')
+                    time_of_quote.append(np.nan)
+            else:
+                quote.append(np.nan)
+                time_of_quote.append(np.nan)
+        except tweepy.TweepError as e:
+            if e.api_code == None:
+
+                url_df = pd.DataFrame()
+                url_df['date'] = date
+                url_df['id_str'] = id_str
+                url_df['id_str_2'] = id_str_2
+                url_df['text'] = text
+                url_df['media_type'] = media_type
+                url_df['url'] = urls
+                url_df['is_quote'] = is_quote
+                url_df['quote'] = quote
+                url_df['quote_date'] = time_of_quote
+                if only_new:
+                    url_df = pd.concat([url_df, pd.read_csv('Attachments.csv')])
+                    url_df.to_csv('Attachments.csv', index=False)
+                else:
+                    url_df.to_csv('Attachments.csv', index=False)
+                print('RateLimitError. Pause for 1000 seconds.')
+                time.sleep(1000)
+            print(f'error code {e.api_code}')
+
+    url_df = pd.DataFrame()
+    url_df['date'] = date
+    url_df['id_str'] = id_str
+    url_df['id_str_2'] = id_str_2
+    url_df['text'] = text
+    url_df['media_type'] = media_type
+    url_df['url'] = urls
+    url_df['is_quote'] = is_quote
+    url_df['quote'] = quote
+    url_df['quote_date'] = time_of_quote
+    if only_new:
+        url_df = pd.concat([url_df, pd.read_csv('Attachments.csv')])
+        url_df.to_csv('Attachments.csv', index=False)
+    else:
+        url_df.to_csv('Attachments.csv', index=False)
 
