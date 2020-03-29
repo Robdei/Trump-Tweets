@@ -1,5 +1,6 @@
 import gather_tweets
 import nlp_functions
+import remove_deletes_and_duplicates
 import pandas as pd
 
 # grab tweets between the following years (inclusive)
@@ -31,10 +32,14 @@ print('applying NER')
 tweets_df = nlp_functions.get_NER_parameters(tweets_df)
 tweets_df.to_csv('Test.csv',index=False)
 
+print('removing deleted and duplicate tweets')
+tweets_df = remove_deletes_and_duplicates.gather_deleted_tweets(tweets_df)
 print('obtaining media attachments')
-gather_tweets.tweepy_get_attachments(tweets_df, consumer_key, consumer_secret, access_key, access_secret)
-tweets_df = pd.read_csv('Test.csv')
-media = pd.read_csv('Attachments.csv')
-tweets_df = tweets_df.merge(media, on = ['id_str','id_str_2'],how = 'left')
 
-tweets_df.to_csv('Test2.csv',index=False)
+gather_tweets.tweepy_get_attachments(tweets_df, consumer_key, consumer_secret, access_key, access_secret)
+tweets_df = remove_deletes_and_duplicates.remove_duplicates(tweets_df)
+tweets_df.to_csv('Test.csv',index=False)
+
+#join media types onto regular dataframe
+gather_tweets.join_media_and_tweets('Test2')
+

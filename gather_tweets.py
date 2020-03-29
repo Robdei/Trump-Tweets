@@ -1,6 +1,7 @@
 import re
 from subprocess import Popen
 from datetime import datetime
+from datetime import timedelta
 import pandas as pd
 import json
 import pytz
@@ -177,7 +178,7 @@ def tweepy_get_attachments(tweets_df, consumer_key, consumer_secret, access_key,
 
     data = tweets_df
     data['contains_link'] = data['Text'].apply(link)
-    data = data[(data.contains_link == True) & (data.is_retweet == False)]
+    data = data[(data.contains_link == True) & (data.is_retweet == False) & (data.deleted == 1)]
     ids = [int(str(x) + str(y)) for x, y in zip(data['id_str'], data['id_str_2'])]
 
     url_df = pd.read_csv('Attachments.csv')
@@ -203,7 +204,7 @@ def tweepy_get_attachments(tweets_df, consumer_key, consumer_secret, access_key,
     print(f'{len(ids_to_download)} new tweets to download')
 
     for n, id in enumerate(ids_to_download):
-        if n % 2 == 0:
+        if n % 1 == 0:
             print(id)
         try:
             tweet = api.get_status(id)
@@ -232,6 +233,7 @@ def tweepy_get_attachments(tweets_df, consumer_key, consumer_secret, access_key,
                 quote.append(np.nan)
                 time_of_quote.append(np.nan)
         except tweepy.TweepError as e:
+            print(f'error code {e.api_code}')
             if e.api_code == None:
 
                 url_df = pd.DataFrame()
@@ -249,9 +251,8 @@ def tweepy_get_attachments(tweets_df, consumer_key, consumer_secret, access_key,
                     url_df.to_csv('Attachments.csv', index=False)
                 else:
                     url_df.to_csv('Attachments.csv', index=False)
-                print('RateLimitError. Pause for 1000 seconds.')
+                print(f'RateLimitError. Pause for 1000 seconds. Restart at {dt.now() + timedelta(seconds=1000)}')
                 time.sleep(1000)
-            print(f'error code {e.api_code}')
 
     url_df = pd.DataFrame()
     url_df['date'] = date
@@ -268,4 +269,20 @@ def tweepy_get_attachments(tweets_df, consumer_key, consumer_secret, access_key,
         url_df.to_csv('Attachments.csv', index=False)
     else:
         url_df.to_csv('Attachments.csv', index=False)
+
+def join_media_and_tweets(name_of_dataframe):
+    media = pd.read_csv('Attachments.csv')
+
+    # media atatchments are in UTC. convert to EST.
+    old_timezone = pytz.timezone("UTC")
+    new_timezone = pytz.timezone("US/Eastern")
+    media['date'] = media['date'].apply(parser.parse)
+    media['quote_date'] = [old_timezone.localize(parser.parse(x)).astimezone(new_timezone) if type(x) == str else np.nan
+                           for x in media['quote_date']]
+    media['date'] = [old_timezone.localize(x).astimezone(new_timezone) for x in media['date']]
+
+    #join dataframes
+    tweets_df = pd.read_csv('Test.csv')
+    tweets_df = tweets_df.merge(media, on=['id_str', 'id_str_2'], how='left')
+    tweets_df.to_csv(f'{name_of_dataframe}.csv', index=False)
 
