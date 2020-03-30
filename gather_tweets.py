@@ -270,7 +270,7 @@ def tweepy_get_attachments(tweets_df, consumer_key, consumer_secret, access_key,
     else:
         url_df.to_csv('Attachments.csv', index=False)
 
-def join_media_and_tweets(name_of_dataframe):
+def join_media_and_tweets(tweets_df, name_of_dataframe):
     media = pd.read_csv('Attachments.csv')
 
     # media atatchments are in UTC. convert to EST.
@@ -282,7 +282,10 @@ def join_media_and_tweets(name_of_dataframe):
     media['date'] = [old_timezone.localize(x).astimezone(new_timezone) for x in media['date']]
 
     #join dataframes
-    tweets_df = pd.read_csv('Test.csv')
+    tweets_df.to_csv(name_of_dataframe+'.csv', index=False)
+    tweets_df = pd.read_csv(name_of_dataframe+'.csv')
     tweets_df = tweets_df.merge(media, on=['id_str', 'id_str_2'], how='left')
+
     tweets_df.to_csv(f'{name_of_dataframe}.csv', index=False)
+    return tweets_df
 
