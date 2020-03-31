@@ -6,7 +6,7 @@ import pandas as pd
 from dateutil import parser
 
 def gather_deleted_tweets(tweets_df,
-                          no_of_pagedowns=5,
+                          no_of_pagedowns=10,
                           path_to_chromedriver='/Users/robbygottesman/Desktop/Twets/chromedriver'):
 
     browser = webdriver.Chrome(path_to_chromedriver)
@@ -43,4 +43,4 @@ def gather_deleted_tweets(tweets_df,
 
 def remove_duplicates(tweets_df):
     tweets_df.drop_duplicates(subset = ['Text'],inplace=True)
-    return  tweets_df
+    return tweets_df
