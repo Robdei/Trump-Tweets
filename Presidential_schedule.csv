@@ -1,9 +1,12 @@
 date,time,time_formatted,year,month,day,day_of_week,type,details,location,coverage,daily_text,url,trump_property,political_rally,golf,fundraiser,international,newmonth,daycount,lastdaily
-2020-03-30,08:00:00,8:00 AM,2020,March,30,Monday,Pool Report Schedule,The President calls in to Fox and Friends for an Interview,The White House,,,https://factba.se/transcript/donald-trump-interview-fox-and-friends-march-30-2020,,,,,,True,5,False
+2020-03-31,10:00:00,10:00 AM,2020,March,31,Tuesday,President Schedule,In-House Pool Call Time,The White House,,,,,,,,,True,3,False
+2020-03-31,14:30:00,2:30 PM,2020,March,31,Tuesday,President Schedule,The President participates in a phone call with network service providers,Oval Office,Closed Press,,,,,,,,False,,False
+2020-03-31,17:00:00,5:00 PM,2020,March,31,Tuesday,Briefing Schedule,Members of the Coronavirus Task Force hold a press briefing,James S. Brady Press Briefing Room,On Camera,,,,,,,,False,,True
+2020-03-30,08:00:00,8:00 AM,2020,March,30,Monday,Pool Report Schedule,The President calls in to Fox and Friends for an Interview,The White House,,,https://factba.se/transcript/donald-trump-interview-fox-and-friends-march-30-2020,,,,,,,5,False
 2020-03-30,10:00:00,10:00 AM,2020,March,30,Monday,President Schedule,In-House Pool Call Time,The White House,,,,,,,,,False,,False
 2020-03-30,11:30:00,11:30 AM,2020,March,30,Monday,President Schedule,"The President participates in a video teleconference with Governors on partnership to prepare, mitigate, and respond to COVID-19",Situation Room,Closed Press,,,,,,,,False,,False
 2020-03-30,13:00:00,1:00 PM,2020,March,30,Monday,President Schedule,The President has lunch with the Vice President,Private Dining Room,Closed Press,,,,,,,,False,,False
-2020-03-30,17:00:00,5:00 PM,2020,March,30,Monday,Briefing Schedule,Members of the Coronavirus Task Force hold a press briefing,James S. Brady Press Briefing Room,On Camera,,,,,,,,False,,True
+2020-03-30,17:00:00,5:00 PM,2020,March,30,Monday,Briefing Schedule,Members of the Coronavirus Task Force hold a press briefing,James S. Brady Press Briefing Room,On Camera,,https://factba.se/transcript/donald-trump-press-conference-coronavirus-briefing-march-30-2020,,,,,,False,,True
 2020-03-29,14:00:00,2:00 PM,2020,March,29,Sunday,President Schedule,In-House Pool Call Time,The White House,,,,,,,,,,3,False
 2020-03-29,15:30:00,3:30 PM,2020,March,29,Sunday,President Schedule,The President participates in a meeting with Supply Chain Distributors,Cabinet Room,Closed Press,,https://factba.se/transcript/donald-trump-remarks-supply-chain-executives-march-29-2020,,,,,,False,,False
 2020-03-29,17:00:00,5:00 PM,2020,March,29,Sunday,Briefing Schedule,Members of the Coronavirus Task Force hold a press briefing,James S. Brady Press Briefing Room,On Camera,,https://factba.se/transcript/donald-trump-press-conference-coronavirus-briefing-march-29-2020,,,,,,False,,True

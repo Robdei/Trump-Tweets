@@ -289,3 +289,21 @@ def join_media_and_tweets(tweets_df, name_of_dataframe):
     tweets_df.to_csv(f'{name_of_dataframe}.csv', index=False)
     return tweets_df
 
+def gather_diff_merge_threads(tweets_df):
+    tweets_df['Diff'] = [np.nan]+[(data['DateTime'][i] - data['DateTime'][i + 1]).seconds for i in range(len(data) - 1)]
+    datetimes = tweets_df['DateTime']
+    tweets_df['Thread Length'] = 1
+    indices = data[data['is_retweet'] == False][data['Diff'] <= 10]
+    cols = ['Text', 'Subjectivity', 'neg', 'neu', 'pos', 'Sentiment', 'CC', 'CD', 'DT', 'EX', 'FW', 'IN', 'JJ', 'JJR',
+            'JJS', 'MD', 'NN', 'NNP', 'NNPS', 'NNS', 'PDT', 'POS', 'PRP', 'PRP$', 'RB', 'RBR', 'RBS', 'RP', 'UH', 'VB',
+            'VBD', 'VBG', 'VBN', 'VBP', 'VBZ', 'WDT', 'WP', 'WP$', 'WRB', 'Len', 'Thread Length']
+    rowstodrop = []
+
+    for i in tqdm(indices.index):
+        # data.iloc[i] = pd.Series((np.array(data.iloc[i])+np.array(data.iloc[i-1])),index=data.columns)
+        # data.iloc[i][cols] =
+        nums = pd.Series(np.array(data.iloc[i][cols]) + np.array(data.iloc[i - 1][cols]), index=cols)
+        for c in cols:
+            data[c][i] = nums[c]
+        rowstodrop.append(i - 1)
+    data.drop(rowstodrop, axis=0, inplace=True)
