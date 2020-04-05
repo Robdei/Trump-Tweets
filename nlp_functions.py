@@ -4,6 +4,7 @@ import re
 import nltk
 from nltk.corpus import stopwords
 from nltk.stem import WordNetLemmatizer
+from tqdm import tqdm
 import pandas as pd
 from collections import Counter
 
@@ -42,7 +43,7 @@ def get_sentiment_and_subjectivity(tweets_df):
 
     # determine sentiment and subjectivity with vadersentiment and textblob, respectively
     subjectivity = [analize_subjectivity(x) for x in clean]
-    polarity = [analize_sentiment(x) for x in clean]
+    polarity = [analize_sentiment(x) for x in tqdm(clean)]
     neg = [x['neg'] for x in polarity]
     pos = [x['pos'] for x in polarity]
     neu = [x['neu'] for x in polarity]
@@ -85,7 +86,7 @@ def get_NER_parameters(tweets_df):
     texts = texts.apply(Lemmatize)
     texts = texts.reset_index(drop=True)
 
-    NER = pd.DataFrame([Counter([x[1] for x in nltk.pos_tag(texts[index])]) for index in range(len(texts))])
+    NER = pd.DataFrame([Counter([x[1] for x in nltk.pos_tag(texts[index])]) for index in tqdm(range(len(texts)))])
     NER = NER.fillna(0)
     NER['Len'] = [len(i) for i in texts]
     tweets_df[NER.columns] = NER

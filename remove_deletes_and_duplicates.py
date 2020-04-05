@@ -43,4 +43,7 @@ def gather_deleted_tweets(tweets_df,
 
 def remove_duplicates(tweets_df):
     tweets_df.drop_duplicates(subset = ['Text'],inplace=True)
+    url_df = pd.read_csv('Attachments.csv')
+    url_df.drop_duplicates(subset=['id_str','id_str_2'], inplace=True)
+    url_df.to_csv('Attachments.csv', index=False)
     return tweets_df

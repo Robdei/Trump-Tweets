@@ -12,6 +12,8 @@ import time
 from selenium.webdriver.common.keys import Keys
 import tweepy
 import numpy as np
+from tqdm import tqdm
+import warnings
 
 
 def gather_year_from_archive(year):
@@ -176,6 +178,7 @@ def tweepy_get_attachments(tweets_df, consumer_key, consumer_secret, access_key,
     auth.set_access_token(access_key, access_secret)
     api = tweepy.API(auth)
 
+    error_codes = np.array([0,0,0])
     data = tweets_df
     data['contains_link'] = data['Text'].apply(link)
     data = data[(data.contains_link == True) & (data.is_retweet == False) & (data.deleted == 1)]
@@ -203,9 +206,8 @@ def tweepy_get_attachments(tweets_df, consumer_key, consumer_secret, access_key,
 
     print(f'{len(ids_to_download)} new tweets to download')
 
-    for n, id in enumerate(ids_to_download):
-        if n % 1 == 0:
-            print(id)
+    for id in ids_to_download:
+        print(id)
         try:
             tweet = api.get_status(id)
             id_str.append(str(id)[:11])
@@ -234,8 +236,8 @@ def tweepy_get_attachments(tweets_df, consumer_key, consumer_secret, access_key,
                 time_of_quote.append(np.nan)
         except tweepy.TweepError as e:
             print(f'error code {e.api_code}')
+            error_codes = np.vstack((error_codes,np.array([str(id)[:11],str(id)[11:],e.api_code])))
             if e.api_code == None:
-
                 url_df = pd.DataFrame()
                 url_df['date'] = date
                 url_df['id_str'] = id_str
@@ -264,11 +266,14 @@ def tweepy_get_attachments(tweets_df, consumer_key, consumer_secret, access_key,
     url_df['is_quote'] = is_quote
     url_df['quote'] = quote
     url_df['quote_date'] = time_of_quote
+    error_df = pd.DataFrame(error_codes,columns = ['id_str','id_str_2','error_code'])
+    url_df = pd.concat([url_df, error_df])
     if only_new:
         url_df = pd.concat([url_df, pd.read_csv('Attachments.csv')])
         url_df.to_csv('Attachments.csv', index=False)
     else:
         url_df.to_csv('Attachments.csv', index=False)
+
 
 def join_media_and_tweets(tweets_df, name_of_dataframe):
     media = pd.read_csv('Attachments.csv')
@@ -276,10 +281,10 @@ def join_media_and_tweets(tweets_df, name_of_dataframe):
     # media atatchments are in UTC. convert to EST.
     old_timezone = pytz.timezone("UTC")
     new_timezone = pytz.timezone("US/Eastern")
-    media['date'] = media['date'].apply(parser.parse)
     media['quote_date'] = [old_timezone.localize(parser.parse(x)).astimezone(new_timezone) if type(x) == str else np.nan
                            for x in media['quote_date']]
-    media['date'] = [old_timezone.localize(x).astimezone(new_timezone) for x in media['date']]
+    media['date'] = [old_timezone.localize(parser.parse(x)).astimezone(new_timezone) if type(x) == str else np.nan
+                           for x in media['date']]
 
     #join dataframes
     tweets_df.to_csv(name_of_dataframe+'.csv', index=False)
@@ -290,20 +295,55 @@ def join_media_and_tweets(tweets_df, name_of_dataframe):
     return tweets_df
 
 def gather_diff_merge_threads(tweets_df):
-    tweets_df['Diff'] = [np.nan]+[(data['DateTime'][i] - data['DateTime'][i + 1]).seconds for i in range(len(data) - 1)]
+    " merges threads together and aggregates their statistics "
+    #find time elapsed between tweets
+    tweets_df.reset_index(inplace=True, drop=True)
+    tweets_df.DateTime = tweets_df.DateTime.apply(parser.parse)
+    tweets_df['Diff'] = [np.nan] + [(tweets_df['DateTime'][tweet] -
+                                     tweets_df['DateTime'][tweet + 1]).seconds for tweet in range(len(tweets_df) - 1)]
+
+    #non-retweet tweets with less than 10 seconds elapsed between them are considered part of the same thread
     datetimes = tweets_df['DateTime']
     tweets_df['Thread Length'] = 1
-    indices = data[data['is_retweet'] == False][data['Diff'] <= 10]
+    with warnings.catch_warnings():
+        warnings.simplefilter("ignore")
+        indices = tweets_df[tweets_df['is_retweet'] == False][tweets_df['Diff'] <= 10]
     cols = ['Text', 'Subjectivity', 'neg', 'neu', 'pos', 'Sentiment', 'CC', 'CD', 'DT', 'EX', 'FW', 'IN', 'JJ', 'JJR',
             'JJS', 'MD', 'NN', 'NNP', 'NNPS', 'NNS', 'PDT', 'POS', 'PRP', 'PRP$', 'RB', 'RBR', 'RBS', 'RP', 'UH', 'VB',
             'VBD', 'VBG', 'VBN', 'VBP', 'VBZ', 'WDT', 'WP', 'WP$', 'WRB', 'Len', 'Thread Length']
-    rowstodrop = []
 
-    for i in tqdm(indices.index):
-        # data.iloc[i] = pd.Series((np.array(data.iloc[i])+np.array(data.iloc[i-1])),index=data.columns)
-        # data.iloc[i][cols] =
-        nums = pd.Series(np.array(data.iloc[i][cols]) + np.array(data.iloc[i - 1][cols]), index=cols)
-        for c in cols:
-            data[c][i] = nums[c]
-        rowstodrop.append(i - 1)
-    data.drop(rowstodrop, axis=0, inplace=True)
+    #conduct merge
+    rowstodrop = []
+    with warnings.catch_warnings():
+        warnings.simplefilter("ignore")
+        for i in tqdm(indices.index):
+            # data.iloc[i] = pd.Series((np.array(data.iloc[i])+np.array(data.iloc[i-1])),index=data.columns)
+            # data.iloc[i][cols] =
+            nums = pd.Series(np.array(tweets_df.iloc[i][cols]) + np.array(tweets_df.iloc[i - 1][cols]), index=cols)
+            for c in cols:
+                tweets_df[c][i] = nums[c]
+            rowstodrop.append(i - 1)
+        tweets_df.drop(rowstodrop, axis=0, inplace=True)
+    tweets_df.reset_index(inplace=True, drop=True)
+    tweets_df['Diff'] = [np.nan] + [(tweets_df['DateTime'][tweet] -
+                                     tweets_df['DateTime'][tweet + 1]).seconds for tweet in range(len(tweets_df) - 1)]
+    tweets_df['Text'] = tweets_df['Text'].replace('\.+', '.', regex=True)
+    RTdict = list(np.zeros(len(tweets_df[tweets_df['is_retweet'] == True])))
+    for n, i in enumerate(tweets_df[tweets_df['is_retweet'] == True]['Text']):
+        RTdict[n] = i.split()[1]
+    RTdict = dict((k, v) for k, v in Counter(RTdict).items() if v >= 50)
+    for i in list(RTdict.keys()):
+        tweets_df[i] = 0
+    tweets_df['Contains Link'] = ['https' in i for i in tweets_df['Text']]
+    tweets_df['Contains Quote'] = ['"' in i for i in tweets_df['Text']]
+    for n, i in enumerate(tweets_df['Text']):
+        try:
+            rter = i.split()[1]
+            if rter in list(RTdict.keys()):
+                tweets_df[i.split()[1]][n] = 1
+        except IndexError:
+            continue
+    tweets_df[['Subjectivity', 'neg', 'neu', 'pos', 'Sentiment']] = (np.array(tweets_df[['Subjectivity', 'neg', 'neu', 'pos', 'Sentiment']]) /
+                                                                     np.array(tweets_df['Thread Length'])[:, None])
+
+    return tweets_df
