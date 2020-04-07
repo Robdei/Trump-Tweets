@@ -5,6 +5,7 @@ import list_of_twitter_users
 import tweepy_keys
 import glob
 import os
+from tqdm import tqdm
 import pytz
 from dateutil import parser
 
@@ -50,9 +51,9 @@ def get_all_tweets(screen_name):
         #print("...%s tweets downloaded so far" % (len(alltweets)))
 
     #transform the tweepy tweets into a 2D array that will populate the csv
-    outtweets = [[tweet.created_at, tweet.text] for tweet in alltweets]
+    outtweets = [[str(tweet.id)[:11],str(tweet.id)[11:],tweet.created_at, tweet.text] for tweet in alltweets]
     print(screen_name+' downloaded')
-    return pd.DataFrame(outtweets,columns=['DateTime','Text'])
+    return pd.DataFrame(outtweets,columns=['id_str_1','id_str_2','DateTime','Text'])
 
 #change directory to Tweet_logs
 os.chdir('Tweets_logs')
@@ -78,3 +79,9 @@ for user in list_of_twitter_users.users_list:
         retdf.drop_duplicates('Text').reset_index(drop=True).to_csv(f'{user}_tweets_temp.csv',index=False)
         pd.read_csv(f'{user}_tweets_temp.csv').sort_values('DateTime').to_csv(f'{user}_tweets.csv',index=False)
         os.remove(f'{user}_tweets_temp.csv')
+
+for csv in tqdm(glob.glob('*.csv')):
+    tweets = pd.read_csv(csv)
+    tweets['Date'] = [date.split()[0] for date in tweets['DateTime']]
+    tweets['Time'] = [date.split()[1] for date in tweets['DateTime']]
+    tweets.to_csv(csv, index=False)
