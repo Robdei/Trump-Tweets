@@ -28,7 +28,6 @@ users_list = [
  'TrumpWarRoom',
  'GOPLeader',
  'LindseyGrahamSC',
- 'JackPosobiec',
  'SecAzar',
  'dbongino',
  'SenateGOP',

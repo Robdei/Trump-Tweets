@@ -27,7 +27,7 @@ tweets_df = nlp_functions.get_sentiment_and_subjectivity(tweets_df)
 
 # download trump vs staff classification labels
 print('determining trump v staff classification')
-gather_tweets.gather_trump_v_staff_classification(no_of_pagedowns=50, path_to_chromedriver='/Users/robbygottesman/Desktop/Twets/chromedriver')
+gather_tweets.gather_trump_v_staff_classification(no_of_pagedowns=100, path_to_chromedriver='/Users/robbygottesman/Desktop/Twets/chromedriver')
 tweets_df = gather_tweets.join_classifer_and_tweets(tweets_df)
 
 print('applying NER')

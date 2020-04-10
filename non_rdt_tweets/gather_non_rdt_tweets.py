@@ -85,3 +85,4 @@ for csv in tqdm(glob.glob('*.csv')):
     tweets['Date'] = [date.split()[0] for date in tweets['DateTime']]
     tweets['Time'] = [date.split()[1] for date in tweets['DateTime']]
     tweets.to_csv(csv, index=False)
+
