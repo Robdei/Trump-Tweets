@@ -1,7 +1,50 @@
 date,time,time_formatted,year,month,day,day_of_week,type,details,location,coverage,daily_text,url,trump_property,political_rally,golf,fundraiser,international,newmonth,daycount,lastdaily
-2020-04-10,10:00:00,10:00 AM,2020,April,10,Friday,President Schedule,In-House Pool Call Time,The White House,,,,,,,,,True,3,False
-2020-04-10,12:00:00,12:00 PM,2020,April,10,Friday,President Schedule,The President participates in an Easter Blessing with Bishop Harry Jackson,Oval Office,Restricted In-House Pool,,,,,,,,False,,False
-2020-04-10,13:00:00,1:00 PM,2020,April,10,Friday,Briefing Schedule,Members of the Coronavirus Task Force hold a press briefing,James S. Brady Press Briefing Room,On Camera,,,,,,,,False,,True
+2020-04-21,11:00:00,11:00 AM,2020,April,21,Tuesday,President Schedule,In-House Pool Call Time,The White House,,,,,,,,,True,3,False
+2020-04-21,16:00:00,4:00 PM,2020,April,21,Tuesday,President Schedule,The President meets with the Governor of New York State,Oval Office,Closed Press,,,,,,,,False,,False
+2020-04-21,17:00:00,5:00 PM,2020,April,21,Tuesday,Briefing Schedule,Members of the Coronavirus Task Force hold a press briefing,James S. Brady Press Briefing Room,On Camera,,,,,,,,False,,True
+2020-04-20,11:00:00,11:00 AM,2020,April,20,Monday,President Schedule,In-House Pool Call Time,The White House,,,,,,,,,,3,False
+2020-04-20,13:00:00,1:00 PM,2020,April,20,Monday,President Schedule,The President has lunch with the Vice President,Private Dining Room,Closed Press,,,,,,,,False,,False
+2020-04-20,17:00:00,5:00 PM,2020,April,20,Monday,Briefing Schedule,Members of the Coronavirus Task Force hold a press briefing,James S. Brady Press Briefing Room,On Camera,,https://factba.se/transcript/donald-trump-press-conference-coronavirus-briefing-april-20-2020,,,,,,False,,True
+2020-04-19,,,2020,April,19,Sunday,President Schedule,The President has no public events scheduled.,,,,,,,,,,,3,False
+2020-04-19,16:00:00,4:00 PM,2020,April,19,Sunday,President Schedule,In-House Pool Call Time,The White House,,,,,,,,,False,,False
+2020-04-19,17:00:00,5:00 PM,2020,April,19,Sunday,Briefing Schedule,Members of the Coronavirus Task Force hold a press briefing,James S. Brady Press Briefing Room,On Camera,,https://factba.se/transcript/donald-trump-press-conference-coronavirus-briefing-april-19-2020,,,,,,False,,True
+2020-04-18,,,2020,April,18,Saturday,President Schedule,The President has no public events scheduled.,The White House,,,,,,,,,,4,False
+2020-04-18,12:00:00,12:00 PM,2020,April,18,Saturday,President Schedule,In-House Pool Call Time,The White House,,,,,,,,,False,,False
+2020-04-18,16:30:00,4:30 PM,2020,April,18,Saturday,President Schedule,In-House Pool Call Time,The White House,,,,,,,,,False,,False
+2020-04-18,17:00:00,5:00 PM,2020,April,18,Saturday,Briefing Schedule,Members of the Coronavirus Task Force hold a press briefing,James S. Brady Press Briefing Room,On Camera,,https://factba.se/transcript/donald-trump-press-conference-coronavirus-briefing-april-18-2020,,,,,,False,,True
+2020-04-17,11:00:00,11:00 AM,2020,April,17,Friday,President Schedule,In-House Pool Call Time,The White House,,,,,,,,,,5,False
+2020-04-17,14:00:00,2:00 PM,2020,April,17,Friday,President Schedule,The President receives his intelligence briefing,Oval Office,Closed Press,,,,,,,,False,,False
+2020-04-17,16:00:00,4:00 PM,2020,April,17,Friday,President Schedule,The President hosts a phone call with faith leaders on the great American economic revival,Oval Office,Closed Press,,,,,,,,False,,False
+2020-04-17,17:00:00,5:00 PM,2020,April,17,Friday,Briefing Schedule,RESCHEDULED: Members of the Coronavirus Task Force hold a press briefing,James S. Brady Press Briefing Room,On Camera,,,,,,,,False,,False
+2020-04-17,18:00:00,6:00 PM,2020,April,17,Friday,Briefing Schedule,Members of the Coronavirus Task Force hold a press briefing,James S. Brady Press Briefing Room,On Camera,,https://factba.se/transcript/donald-trump-press-conference-coronavirus-briefing-april-17-2020,,,,,,False,,True
+2020-04-16,08:30:00,8:30 AM,2020,April,16,Thursday,President Schedule,The President participates in a G7 Leaders’ video teleconference on coordinated action in response to COVID-19,Situation Room,Closed Press,,,,,,,,,8,False
+2020-04-16,10:00:00,10:00 AM,2020,April,16,Thursday,President Schedule,The President hosts a phone call with members of the House of Representatives,Oval Office,Closed Press,,,,,,,,False,,False
+2020-04-16,11:00:00,11:00 AM,2020,April,16,Thursday,President Schedule,The President hosts a phone call with members of the Senate,Oval Office,Closed Press,,,,,,,,False,,False
+2020-04-16,13:30:00,1:30 PM,2020,April,16,Thursday,President Schedule,The President delivers remarks celebrating America’s Truckers,South Lawn,Restricted In-House Pool,,https://factba.se/transcript/donald-trump-remarks-american-truckers-coronavirus-april-16-2020,,,,,,False,,False
+2020-04-16,14:15:00,2:15 PM,2020,April,16,Thursday,President Schedule,The President delivers remarks celebrating America’s Truckers,South Lawn,Restricted In-House Pool,,,,,,,,False,,False
+2020-04-16,15:00:00,3:00 PM,2020,April,16,Thursday,President Schedule,The President participates in a video teleconference with Governors on COVID-19 response and economic revival,Situation Room,Closed Press,,,,,,,,False,,False
+2020-04-16,17:00:00,5:00 PM,2020,April,16,Thursday,Briefing Schedule,Members of the Coronavirus Task Force hold a press briefing,James S. Brady Press Briefing Room,On Camera,,https://factba.se/transcript/donald-trump-press-conference-coronavirus-briefing-april-16-2020,,,,,,False,,False
+2020-04-16,18:00:00,6:00 PM,2020,April,16,Thursday,Briefing Schedule,Members of the Coronavirus Task Force hold a press briefing,James S. Brady Press Briefing Room,On Camera,,,,,,,,False,,True
+2020-04-15,10:00:00,10:00 AM,2020,April,15,Wednesday,President Schedule,"The President hosts a phone call with banking, financial services, food and beverage, hospitality, and retail industry groups",Oval Office,Closed Press,,,,,,,,,5,False
+2020-04-15,12:00:00,12:00 PM,2020,April,15,Wednesday,President Schedule,"The President hosts a phone call with healthcare, tech, telecommunications, and transportation industry groups",Oval Office,Closed Press,,,,,,,,False,,False
+2020-04-15,14:00:00,2:00 PM,2020,April,15,Wednesday,President Schedule,"The President hosts a phone call with agriculture, construction/labor/workforce, defense, energy, and manufacturing industry groups and thought leaders",Oval Office,Closed Press,,,,,,,,False,,False
+2020-04-15,15:30:00,3:30 PM,2020,April,15,Wednesday,President Schedule,The President hosts a phone call with sports industry groups,Oval Office,Closed Press,,,,,,,,False,,False
+2020-04-15,17:00:00,5:00 PM,2020,April,15,Wednesday,Briefing Schedule,Members of the Coronavirus Task Force hold a press briefing,James S. Brady Press Briefing Room,On Camera,,https://factba.se/transcript/donald-trump-press-conference-coronavirus-briefing-april-15-2020,,,,,,False,,True
+2020-04-14,10:00:00,10:00 AM,2020,April,14,Tuesday,President Schedule,In-House Pool Call Time,The White House,,,,,,,,,,5,False
+2020-04-14,11:30:00,11:30 AM,2020,April,14,Tuesday,President Schedule,The President participates in a meeting with recovered COVID-19 patients,Cabinet Room,Restricted In-House Pool,,https://factba.se/transcript/donald-trump-remarks-coronavirus-survivors-april-14-2020,,,,,,False,,False
+2020-04-14,14:00:00,2:00 PM,2020,April,14,Tuesday,President Schedule,The President receives his intelligence briefing,Oval Office,Closed Press,,,,,,,,False,,False
+2020-04-14,15:30:00,3:30 PM,2020,April,14,Tuesday,President Schedule,The President participates in a meeting with Healthcare Executives,Cabinet Room,Closed Press,,https://factba.se/transcript/donald-trump-remarks-healthcare-executives-coronavirus-april-14-2020,,,,,,False,,False
+2020-04-14,17:00:00,5:00 PM,2020,April,14,Tuesday,Briefing Schedule,Members of the Coronavirus Task Force hold a press briefing,Rose Garden,On Camera,,https://factba.se/transcript/donald-trump-press-conference-coronavirus-briefing-april-14-2020,,,,,,False,,True
+2020-04-13,11:00:00,11:00 AM,2020,April,13,Monday,President Schedule,In-House Pool Call Time,The White House,,,,,,,,,,3,False
+2020-04-13,12:30:00,12:30 PM,2020,April,13,Monday,President Schedule,The President has lunch with the Vice President,Private Dining Room,Closed Press,,,,,,,,False,,False
+2020-04-13,17:00:00,5:00 PM,2020,April,13,Monday,Briefing Schedule,Members of the Coronavirus Task Force hold a press briefing,James S. Brady Press Briefing Room,On Camera,,https://factba.se/transcript/donald-trump-press-conference-coronavirus-briefing-april-13-2020,,,,,,False,,True
+2020-04-12,,,2020,April,12,Sunday,President Schedule,The President has no public events scheduled.,The White House,,,,,,,,,,2,False
+2020-04-12,14:00:00,2:00 PM,2020,April,12,Sunday,President Schedule,In-House Pool Call Time,The White House,,,,,,,,,False,,True
+2020-04-11,,,2020,April,11,Saturday,President Schedule,The President has no public events scheduled.,The White House,,,,,,,,,,2,False
+2020-04-11,14:00:00,2:00 PM,2020,April,11,Saturday,President Schedule,In-House Pool Call Time,The White House,,,,,,,,,False,,True
+2020-04-10,10:00:00,10:00 AM,2020,April,10,Friday,President Schedule,In-House Pool Call Time,The White House,,,,,,,,,,3,False
+2020-04-10,12:00:00,12:00 PM,2020,April,10,Friday,President Schedule,The President participates in an Easter Blessing with Bishop Harry Jackson,Oval Office,Restricted In-House Pool,,https://factba.se/transcript/donald-trump-remarks-easter-blessing-april-10-2020,,,,,,False,,False
+2020-04-10,13:00:00,1:00 PM,2020,April,10,Friday,Briefing Schedule,Members of the Coronavirus Task Force hold a press briefing,James S. Brady Press Briefing Room,On Camera,,https://factba.se/transcript/donald-trump-press-conference-coronavirus-briefing-april-10-2020,,,,,,False,,True
 2020-04-09,10:00:00,10:00 AM,2020,April,9,Thursday,President Schedule,In-House Pool Call Time,The White House,,,,,,,,,,4,False
 2020-04-09,12:30:00,12:30 PM,2020,April,9,Thursday,President Schedule,The President has lunch with the Secretary of State,Private Dining Room,Closed Press,,,,,,,,False,,False
 2020-04-09,14:30:00,2:30 PM,2020,April,9,Thursday,President Schedule,The President participates in a phone call with Mental Health Leaders and Advocates,Oval Office,Closed Press,,,,,,,,False,,False
