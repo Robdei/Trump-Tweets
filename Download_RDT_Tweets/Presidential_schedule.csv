@@ -1,11 +1,24 @@
 date,time,time_formatted,year,month,day,day_of_week,type,details,location,coverage,daily_text,url,trump_property,political_rally,golf,fundraiser,international,newmonth,daycount,lastdaily
-2020-04-21,11:00:00,11:00 AM,2020,April,21,Tuesday,President Schedule,In-House Pool Call Time,The White House,,,,,,,,,True,3,False
+2020-04-24,10:30:00,10:30 AM,2020,April,24,Friday,President Schedule,In-House Pool Call Time,The White House,,,,,,,,,True,5,False
+2020-04-24,12:00:00,12:00 PM,2020,April,24,Friday,President Schedule,"The President participates in a signing ceremony for H.R. 266, Paycheck Protection Program and Health Care Enhancement Act",Oval Office,Restricted In-House Pool,,,,,,,,False,,False
+2020-04-24,14:30:00,2:30 PM,2020,April,24,Friday,President Schedule,The President receives a briefing on NASA COVID-19 Response,Cabinet Room,Closed Press,,,,,,,,False,,False
+2020-04-24,15:00:00,3:00 PM,2020,April,24,Friday,President Schedule,The President receives his intelligence briefing,Oval Office,Closed Press,,,,,,,,False,,False
+2020-04-24,17:00:00,5:00 PM,2020,April,24,Friday,Briefing Schedule,Members of the Coronavirus Task Force hold a press briefing,James S. Brady Press Briefing Room,On Camera,,,,,,,,False,,True
+2020-04-23,,,2020,April,23,Thursday,President Schedule,The President has no public events scheduled.,The White House,,,,,,,,,,3,False
+2020-04-23,11:00:00,11:00 AM,2020,April,23,Thursday,President Schedule,In-House Pool Call Time,The White House,,,,,,,,,False,,False
+2020-04-23,17:00:00,5:00 PM,2020,April,23,Thursday,Briefing Schedule,Members of the Coronavirus Task Force hold a press briefing,James S. Brady Press Briefing Room,On Camera,,https://factba.se/transcript/donald-trump-press-conference-coronavirus-briefing-april-23-2020,,,,,,False,,True
+2020-04-22,10:30:00,10:30 AM,2020,April,22,Wednesday,President Schedule,In-House Pool Call Time,The White House,,,,,,,,,,5,False
+2020-04-22,12:00:00,12:00 PM,2020,April,22,Wednesday,President Schedule,The President and The First Lady participate in a tree planting ceremony in recognition of Earth Day and Arbor Day,South Lawn,Restricted In-House Pool,,https://factba.se/transcript/donald-trump-remarks-tree-planting-earth-day-arbor-day-april-22-2020,,,,,,False,,False
+2020-04-22,13:00:00,1:00 PM,2020,April,22,Wednesday,President Schedule,The President has lunch with the Secretary of State,Private Dining Room,Closed Press,,,,,,,,False,,False
+2020-04-22,14:30:00,2:30 PM,2020,April,22,Wednesday,President Schedule,The President receives his intelligence briefing,Oval Office,Closed Press,,,,,,,,False,,False
+2020-04-22,17:00:00,5:00 PM,2020,April,22,Wednesday,Briefing Schedule,Members of the Coronavirus Task Force hold a press briefing,James S. Brady Press Briefing Room,On Camera,,https://factba.se/transcript/donald-trump-press-conference-coronavirus-briefing-april-22-2020,,,,,,False,,True
+2020-04-21,11:00:00,11:00 AM,2020,April,21,Tuesday,President Schedule,In-House Pool Call Time,The White House,,,,,,,,,,3,False
 2020-04-21,16:00:00,4:00 PM,2020,April,21,Tuesday,President Schedule,The President meets with the Governor of New York State,Oval Office,Closed Press,,,,,,,,False,,False
-2020-04-21,17:00:00,5:00 PM,2020,April,21,Tuesday,Briefing Schedule,Members of the Coronavirus Task Force hold a press briefing,James S. Brady Press Briefing Room,On Camera,,,,,,,,False,,True
+2020-04-21,17:00:00,5:00 PM,2020,April,21,Tuesday,Briefing Schedule,Members of the Coronavirus Task Force hold a press briefing,James S. Brady Press Briefing Room,On Camera,,https://factba.se/transcript/donald-trump-press-conference-coronavirus-briefing-april-21-2020,,,,,,False,,True
 2020-04-20,11:00:00,11:00 AM,2020,April,20,Monday,President Schedule,In-House Pool Call Time,The White House,,,,,,,,,,3,False
 2020-04-20,13:00:00,1:00 PM,2020,April,20,Monday,President Schedule,The President has lunch with the Vice President,Private Dining Room,Closed Press,,,,,,,,False,,False
 2020-04-20,17:00:00,5:00 PM,2020,April,20,Monday,Briefing Schedule,Members of the Coronavirus Task Force hold a press briefing,James S. Brady Press Briefing Room,On Camera,,https://factba.se/transcript/donald-trump-press-conference-coronavirus-briefing-april-20-2020,,,,,,False,,True
-2020-04-19,,,2020,April,19,Sunday,President Schedule,The President has no public events scheduled.,,,,,,,,,,,3,False
+2020-04-19,,,2020,April,19,Sunday,President Schedule,The President has no public events scheduled.,The White House,,,,,,,,,,3,False
 2020-04-19,16:00:00,4:00 PM,2020,April,19,Sunday,President Schedule,In-House Pool Call Time,The White House,,,,,,,,,False,,False
 2020-04-19,17:00:00,5:00 PM,2020,April,19,Sunday,Briefing Schedule,Members of the Coronavirus Task Force hold a press briefing,James S. Brady Press Briefing Room,On Camera,,https://factba.se/transcript/donald-trump-press-conference-coronavirus-briefing-april-19-2020,,,,,,False,,True
 2020-04-18,,,2020,April,18,Saturday,President Schedule,The President has no public events scheduled.,The White House,,,,,,,,,,4,False
