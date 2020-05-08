@@ -11,7 +11,7 @@ from selenium.webdriver.common.keys import Keys
 
 path_to_chromedriver = '/Users/robbygottesman/Desktop/Twets/chromedriver'
 
-def download_reddit_info(url):
+def download_reddit_info(url, csv_name):
 
     browser = webdriver.Chrome(path_to_chromedriver)
     browser.get(url)
@@ -50,10 +50,18 @@ def download_reddit_info(url):
     app.drop(app.index[0], inplace=True)
     os.remove("RedditCount.txt")
     os.remove("RedditJson.txt")
-    os.chdir('reddit_csvs')
-    app.to_csv(f'reddit_{query}_{subreddit}_{search_type}.csv', index=False)
+    try: os.chdir('reddit_csvs')
+    except: print(' ')
+    app.to_csv(f'{csv_name}.csv', index=False)
 
-url = f'''https://api.pushshift.io/reddit/search/comments/?q=trump&after=1300d&aggs=created_utc&frequency=hour&subreddit=politics&size=0'''
-download_reddit_info(url)
-# download_reddit_info('trump')
+url = 'https://api.pushshift.io/reddit/search/comment/?q=trump&after=1300d&aggs=created_utc&frequency=hour&subreddit=politics&size=0'
+download_reddit_info(url, csv_name='reddit_trump_politics_comments')
 
+url = 'https://api.pushshift.io/reddit/search/submission/?q=trump&after=1300d&aggs=created_utc&frequency=hour&subreddit=politics&size=0'
+download_reddit_info(url, csv_name='reddit_trump_politics_submissions')
+
+url = 'https://api.pushshift.io/reddit/search/comment/?q=trump&after=1300d&aggs=created_utc&frequency=hour&subreddit=conservative&size=0'
+download_reddit_info(url, csv_name='reddit_trump_conservative_comments')
+
+url = 'https://api.pushshift.io/reddit/search/submission/?q=trump&after=1300d&aggs=created_utc&frequency=hour&subreddit=conservative&size=0'
+download_reddit_info(url, csv_name='reddit_trump_conservative_submissions')
