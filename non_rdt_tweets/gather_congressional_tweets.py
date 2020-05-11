@@ -19,7 +19,7 @@ data = data.sort_values('Date')
 
 cols_to_drop = []
 for n, tweets in enumerate(data.Total):
-    if tweets == 0 or not isint(tweets):
+    if not isint(tweets):
         cols_to_drop.append(n)
 data.drop(cols_to_drop, inplace=True)
 data.to_csv('congressional_tweets.csv',index=False)

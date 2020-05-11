@@ -41,12 +41,13 @@ def download_reddit_info(url, csv_name):
             dates.append(p['key'])
             comments.append(p['doc_count'])
 
-    app['Date (UTC)'] = dates
+    app['DateTime (UTC)'] = dates
     app['Comment Count'] = comments
-    app['Date (EST)'] = [datetime.utcfromtimestamp(app['Date (UTC)'][x]) for x in range(len(app))]
+    app['DateTime (EST)'] = [datetime.utcfromtimestamp(app['DateTime (UTC)'][x]) for x in range(len(app))]
     old_timezone = pytz.timezone("UTC")
     new_timezone = pytz.timezone("US/Eastern")
-    app['Date (EST)'] = [old_timezone.localize(x).astimezone(new_timezone) for x in app['Date (EST)']]
+    app['DateTime (EST)'] = [old_timezone.localize(x).astimezone(new_timezone) for x in app['DateTime (EST)']]
+    app['Date (EST)'] = [datetime(x.year,x.month,x.day) for x in app['DateTime (EST)']]
     app.drop(app.index[0], inplace=True)
     os.remove("RedditCount.txt")
     os.remove("RedditJson.txt")

@@ -1,6 +1,8 @@
 date,time,time_formatted,year,month,day,day_of_week,type,details,location,coverage,daily_text,url,trump_property,political_rally,golf,fundraiser,international,newmonth,daycount,lastdaily
-2020-05-09,16:00:00,4:00 PM,2020,May,9,Saturday,President Schedule,In-House Pool Call Time,The White House,,,,,,,,,True,2,False
-2020-05-09,17:00:00,5:00 PM,2020,May,9,Saturday,President Schedule,The President participates in a meeting with Senior Military Leadership and National Security Team,Cabinet Room,Restricted In-House Pool,,,,,,,,False,,True
+2020-05-10,,,2020,May,10,Sunday,President Schedule,The President has no public events scheduled.,The White House,,,,,,,,,True,2,False
+2020-05-10,14:00:00,2:00 PM,2020,May,10,Sunday,President Schedule,In-House Pool Call Time,The White House,,,,,,,,,False,,True
+2020-05-09,16:00:00,4:00 PM,2020,May,9,Saturday,President Schedule,In-House Pool Call Time,The White House,,,,,,,,,,2,False
+2020-05-09,17:00:00,5:00 PM,2020,May,9,Saturday,President Schedule,The President participates in a meeting with Senior Military Leadership and National Security Team,Cabinet Room,Restricted In-House Pool,,https://factba.se/transcript/donald-trump-remarks-national-security-meeting-may-9-2020,,,,,,False,,True
 2020-05-08,10:00:00,10:00 AM,2020,May,8,Friday,President Schedule,In-House Pool Call Time,The White House,,,,,,,,,,7,False
 2020-05-08,11:20:00,11:20 AM,2020,May,8,Friday,President Schedule,The President and The First Lady depart the White House en route to the World War II Memorial,South Portico,In-Town Travel Pool,,,,,,,,False,,False
 2020-05-08,11:25:00,11:25 AM,2020,May,8,Friday,President Schedule,The President and The First Lady arrive at the World War II Memorial,World War II Memorial,In-Town Travel Pool,,,,,,,,False,,False
