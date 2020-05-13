@@ -5,6 +5,7 @@ import pandas as pd
 from datetime import datetime as dt
 import numpy as np
 import re
+from dateutil import parser
 
 keep_trying = True
 
@@ -22,15 +23,17 @@ for n, tweets in enumerate(data.Total):
     if not isint(tweets):
         cols_to_drop.append(n)
 data.drop(cols_to_drop, inplace=True)
-data.to_csv('congressional_tweets.csv',index=False)
+data.drop_duplicates().to_csv('congressional_tweets.csv',index=False)
 
 path_to_chromedriver='/Users/robbygottesman/Desktop/Twets/chromedriver'
 
 dates = set(pd.date_range('2017-01-20',dt.today()).astype(str))
 politics_tweets = pd.read_csv('congressional_tweets.csv')
-politics_tweets_dates = set(politics_tweets.Date)
-
+politics_tweets_dates = politics_tweets.Date.apply(parser.parse)
+politics_tweets_dates = set([str(x)[:-9] for x in politics_tweets_dates])
 dates = sorted(list(dates-politics_tweets_dates))
+
+print(dates)
 retval_array = np.array([0,0,0,0])
 
 for date in dates[0:]:

@@ -1,5 +1,14 @@
 date,time,time_formatted,year,month,day,day_of_week,type,details,location,coverage,daily_text,url,trump_property,political_rally,golf,fundraiser,international,newmonth,daycount,lastdaily
-2020-05-10,,,2020,May,10,Sunday,President Schedule,The President has no public events scheduled.,The White House,,,,,,,,,True,2,False
+2020-05-13,11:00:00,11:00 AM,2020,May,13,Wednesday,President Schedule,In-House Pool Call Time,The White House,,,,,,,,,True,2,False
+2020-05-13,16:00:00,4:00 PM,2020,May,13,Wednesday,President Schedule,The President meets with the Governor of Colorado and the Governor of North Dakota,Cabinet Room,Restricted In-House Pool,,,,,,,,False,,True
+2020-05-12,11:00:00,11:00 AM,2020,May,12,Tuesday,President Schedule,In-House Pool Call Time,The White House,,,,,,,,,,4,False
+2020-05-12,12:00:00,12:00 PM,2020,May,12,Tuesday,President Schedule,The President receives his intelligence briefing,Oval Office,Closed Press,,,,,,,,False,,False
+2020-05-12,14:00:00,2:00 PM,2020,May,12,Tuesday,Briefing Schedule,Press Secretary Kayleigh McEnany holds a briefing,The White House,On Camera,,https://factba.se/transcript/donald-trump-kayleigh-mcenany-press-conference-briefing-may-12-2020,,,,,,False,,False
+2020-05-12,16:00:00,4:00 PM,2020,May,12,Tuesday,President Schedule,The President meets with Republican Members of the Senate,Cabinet Room,Closed Press,,,,,,,,False,,True
+2020-05-11,11:00:00,11:00 AM,2020,May,11,Monday,President Schedule,In-House Pool Call Time,The White House,,,,,,,,,,3,False
+2020-05-11,12:30:00,12:30 PM,2020,May,11,Monday,President Schedule,The President meets with the Secretary of State,Oval Office,Closed Press,,,,,,,,False,,False
+2020-05-11,16:00:00,4:00 PM,2020,May,11,Monday,President Schedule,The President and Administration officials deliver remarks and hold a press briefing on testing,Rose Garden,Expanded In-House Pool,,https://factba.se/transcript/donald-trump-press-conference-coronavirus-testing-may-11-2020,,,,,,False,,True
+2020-05-10,,,2020,May,10,Sunday,President Schedule,The President has no public events scheduled.,The White House,,,,,,,,,,2,False
 2020-05-10,14:00:00,2:00 PM,2020,May,10,Sunday,President Schedule,In-House Pool Call Time,The White House,,,,,,,,,False,,True
 2020-05-09,16:00:00,4:00 PM,2020,May,9,Saturday,President Schedule,In-House Pool Call Time,The White House,,,,,,,,,,2,False
 2020-05-09,17:00:00,5:00 PM,2020,May,9,Saturday,President Schedule,The President participates in a meeting with Senior Military Leadership and National Security Team,Cabinet Room,Restricted In-House Pool,,https://factba.se/transcript/donald-trump-remarks-national-security-meeting-may-9-2020,,,,,,False,,True
