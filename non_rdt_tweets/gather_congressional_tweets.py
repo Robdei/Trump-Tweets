@@ -6,6 +6,7 @@ from datetime import datetime as dt
 import numpy as np
 import re
 from dateutil import parser
+from datetime import timedelta
 
 keep_trying = True
 
@@ -27,8 +28,9 @@ data.drop_duplicates().to_csv('congressional_tweets.csv',index=False)
 
 path_to_chromedriver='/Users/robbygottesman/Desktop/Twets/chromedriver'
 
-dates = set(pd.date_range('2017-01-20',dt.today()).astype(str))
+dates = set(pd.date_range('2017-01-20',dt.today()-timedelta(days=1)).astype(str))
 politics_tweets = pd.read_csv('congressional_tweets.csv')
+politics_tweets = politics_tweets[politics_tweets.Date != '0']
 politics_tweets_dates = politics_tweets.Date.apply(parser.parse)
 politics_tweets_dates = set([str(x)[:-9] for x in politics_tweets_dates])
 dates = sorted(list(dates-politics_tweets_dates))
@@ -58,6 +60,9 @@ for date in dates[0:]:
 			politics_tweets.to_csv('congressional_tweets.csv', index=False)
 			if keep_trying: continue
 			else: break
+		except ValueError:
+			if keep_trying: continue
+			else: break
 		break
    
 	for party in [repub_index,dem_index,tot_index]:
@@ -68,4 +73,4 @@ for date in dates[0:]:
 
 politics_tweets_concat = pd.DataFrame(retval_array[1:,:],columns=['Date','Republicans','Democrats','Total'])
 politics_tweets = pd.concat([politics_tweets,politics_tweets_concat])
-politics_tweets.to_csv('congressional_tweets.csv',index=False)
+politics_tweets[politics_tweets.Date != 0].drop_duplicates().to_csv('congressional_tweets.csv',index=False)

@@ -1,6 +1,33 @@
 date,time,time_formatted,year,month,day,day_of_week,type,details,location,coverage,daily_text,url,trump_property,political_rally,golf,fundraiser,international,newmonth,daycount,lastdaily
-2020-05-13,11:00:00,11:00 AM,2020,May,13,Wednesday,President Schedule,In-House Pool Call Time,The White House,,,,,,,,,True,2,False
-2020-05-13,16:00:00,4:00 PM,2020,May,13,Wednesday,President Schedule,The President meets with the Governor of Colorado and the Governor of North Dakota,Cabinet Room,Restricted In-House Pool,,,,,,,,False,,True
+2020-05-16,,,2020,May,16,Saturday,President Schedule,The President has no public events scheduled.,Camp David,,,,,,,,,True,2,False
+2020-05-16,12:00:00,12:00 PM,2020,May,16,Saturday,President Schedule,In-House Pool Call Time,The White House,,,,,,,,,False,,True
+2020-05-15,10:00:00,10:00 AM,2020,May,15,Friday,President Schedule,In-House Pool Call Time,The White House,,,,,,,,,,8,False
+2020-05-15,12:00:00,12:00 PM,2020,May,15,Friday,President Schedule,The President delivers remarks on vaccine development,Rose Garden,In-House Pool,,,,,,,,False,,False
+2020-05-15,12:30:00,12:30 PM,2020,May,15,Friday,President Schedule,The President participates in the presentation of the United States Space Force Flag and signs an Armed Forces Day Proclamation,Oval Office,Closed Press,,,,,,,,False,,False
+2020-05-15,14:30:00,2:30 PM,2020,May,15,Friday,President Schedule,The President receives his intelligence briefing,Oval Office,Closed Press,,,,,,,,False,,False
+2020-05-15,14:30:00,2:30 PM,2020,May,15,Friday,Briefing Schedule,Press Secretary Kayleigh McEnany holds a press briefing,,On Camera,,,,,,,,False,,False
+2020-05-15,16:00:00,4:00 PM,2020,May,15,Friday,President Schedule,"The President delivers remarks at a Presidential Recognition Ceremony: Hard Work, Heroism, and Hope",Rose Garden,In-House Pool,,,,,,,,False,,False
+2020-05-15,17:00:00,5:00 PM,2020,May,15,Friday,President Schedule,The President departs the White House en route to Camp David,South Lawn,In-House Pool,,,,,,,,False,,False
+2020-05-15,17:35:00,5:35 PM,2020,May,15,Friday,President Schedule,The President arrives at Camp David,Camp David,Closed Press,,,,,,,,False,,True
+2020-05-14,06:00:00,6:00 AM,2020,May,14,Thursday,Campaign Schedule,Interview: Maria Bartiromo on FBN [Pre-recorded - Airs between 6-9 am ET],The White House,,,https://factba.se/transcript/donald-trump-interview-hannity-fox-news-april-7-2020,,,,,,,17,False
+2020-05-14,10:30:00,10:30 AM,2020,May,14,Thursday,President Schedule,In-House Pool Call Time,The White House,,,,,,,,,False,,False
+2020-05-14,10:55:00,10:55 AM,2020,May,14,Thursday,President Schedule,Out-of-Town Pool Call Time,Joint Base Andrews,Out-of-Town Pool,,,,,,,,False,,False
+2020-05-14,12:00:00,12:00 PM,2020,May,14,Thursday,President Schedule,The President departs the White House en route to Joint Base Andrews,South Lawn,In-House Pool,,https://factba.se/transcript/donald-trump-press-gaggle-marine-one-departure-may-14-2020,,,,,,False,,False
+2020-05-14,12:10:00,12:10 PM,2020,May,14,Thursday,President Schedule,The President arrives at Joint Base Andrews,Joint Base Andrews,Restricted Out-of-Town Travel Pool,,,,,,,,False,,False
+2020-05-14,12:20:00,12:20 PM,2020,May,14,Thursday,President Schedule,"The President departs Washington, D.C., en route to Allentown, PA",Joint Base Andrews,Restricted Out-of-Town Travel Pool,,,,,,,,False,,False
+2020-05-14,13:05:00,1:05 PM,2020,May,14,Thursday,President Schedule,The President arrives at Lehigh Valley International Airport,Lehigh Valley International Airport,Out-of-Town Travel Pool,,,,,,,,False,,False
+2020-05-14,13:15:00,1:15 PM,2020,May,14,Thursday,President Schedule,"The President departs Lehigh Valley International Airport en route to Owens & Minor, Inc. Distribution Center",Lehigh Valley International Airport,Out-of-Town Travel Pool,,,,,,,,False,,False
+2020-05-14,13:40:00,1:40 PM,2020,May,14,Thursday,President Schedule,"The President arrives at Owens & Minor, Inc. Distribution Center","Owens and Minor, Allentown, PA",Out-of-Town Travel Pool,,,,,,,,False,,False
+2020-05-14,13:45:00,1:45 PM,2020,May,14,Thursday,President Schedule,"The President tours Owens & Minor, Inc. Distribution Center","Owens and Minor, Allentown, PA",Out-of-Town Travel Pool,,,,,,,,False,,False
+2020-05-14,14:15:00,2:15 PM,2020,May,14,Thursday,President Schedule,"The President delivers remarks at Owens & Minor, Inc. Distribution Center","Owens and Minor, Allentown, PA",Expanded Out-of-Town Travel Pool,,https://factba.se/transcript/donald-trump-remarks-distribution-facility-allentown-pennsylvania-may-14-2020,,,,,,False,,False
+2020-05-14,14:50:00,2:50 PM,2020,May,14,Thursday,President Schedule,"The President departs Owens & Minor, Inc. en route to Lehigh Valley International Airport","Owens and Minor, Allentown, PA",Out-of-Town Travel Pool,,,,,,,,False,,False
+2020-05-14,15:15:00,3:15 PM,2020,May,14,Thursday,President Schedule,The President arrives at Lehigh Valley International Airport,Lehigh Valley International Airport,Out-of-Town Travel Pool,,,,,,,,False,,False
+2020-05-14,15:30:00,3:30 PM,2020,May,14,Thursday,President Schedule,"The President departs Allentown, PA, en route to Washington, D.C.",Lehigh Valley International Airport,Restricted Out-of-Town Travel Pool,,,,,,,,False,,False
+2020-05-14,16:15:00,4:15 PM,2020,May,14,Thursday,President Schedule,The President arrives at Joint Base Andrews,Joint Base Andrews,Restricted Out-of-Town Travel Pool,,,,,,,,False,,False
+2020-05-14,16:25:00,4:25 PM,2020,May,14,Thursday,President Schedule,The President departs Joint Base Andrews en route to the White House,Joint Base Andrews,Restricted Out-of-Town Travel Pool,,,,,,,,False,,False
+2020-05-14,16:35:00,4:35 PM,2020,May,14,Thursday,President Schedule,The President arrives at the White House,South Lawn,In-House Pool,,,,,,,,False,,True
+2020-05-13,11:00:00,11:00 AM,2020,May,13,Wednesday,President Schedule,In-House Pool Call Time,The White House,,,,,,,,,,2,False
+2020-05-13,16:00:00,4:00 PM,2020,May,13,Wednesday,President Schedule,The President meets with the Governor of Colorado and the Governor of North Dakota,Cabinet Room,Restricted In-House Pool,,https://factba.se/transcript/donald-trump-remarks-governors-north-dakota-colorado-may-13-2020,,,,,,False,,True
 2020-05-12,11:00:00,11:00 AM,2020,May,12,Tuesday,President Schedule,In-House Pool Call Time,The White House,,,,,,,,,,4,False
 2020-05-12,12:00:00,12:00 PM,2020,May,12,Tuesday,President Schedule,The President receives his intelligence briefing,Oval Office,Closed Press,,,,,,,,False,,False
 2020-05-12,14:00:00,2:00 PM,2020,May,12,Tuesday,Briefing Schedule,Press Secretary Kayleigh McEnany holds a briefing,The White House,On Camera,,https://factba.se/transcript/donald-trump-kayleigh-mcenany-press-conference-briefing-may-12-2020,,,,,,False,,False
