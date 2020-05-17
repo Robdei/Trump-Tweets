@@ -36,6 +36,7 @@ politics_tweets_dates = set([str(x)[:-9] for x in politics_tweets_dates])
 dates = sorted(list(dates-politics_tweets_dates))
 
 print(dates)
+
 retval_array = np.array([0,0,0,0])
 
 for date in dates[0:]:
