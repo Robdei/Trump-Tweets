@@ -56,14 +56,15 @@ for date in dates[0:]:
 			dem_index  = re.search('Democrats</h1><p class="group-counts"><span>',web_page).end()
 			tot_index  = re.search('Tweets for the period</h1><span class="tweet-total"><span>',web_page).end()
 		except AttributeError:
-			politics_tweets_concat = pd.DataFrame(retval_array, columns=['Date', 'Republicans', 'Democrats', 'Total'])
-			politics_tweets = pd.concat([politics_tweets, politics_tweets_concat]).drop_duplicates()
-			politics_tweets.to_csv('congressional_tweets.csv', index=False)
-			if keep_trying: continue
-			else: break
-		except ValueError:
-			if keep_trying: continue
-			else: break
+			try:
+				politics_tweets_concat = pd.DataFrame(retval_array, columns=['Date', 'Republicans', 'Democrats', 'Total'])
+				politics_tweets = pd.concat([politics_tweets, politics_tweets_concat]).drop_duplicates()
+				politics_tweets.to_csv('congressional_tweets.csv', index=False)
+				if keep_trying: continue
+				else: break
+			except ValueError:
+				if keep_trying: continue
+				else: break
 		break
    
 	for party in [repub_index,dem_index,tot_index]:
